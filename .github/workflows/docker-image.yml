@@ -29,5 +29,5 @@ jobs:
         username: $ACR_USER_NAME
         password: $ACR_PASSWORD
     - run: |
-        docker build . -t ${{ secrets.ACR_LOGIN_SERVER }}/python_app:${{ github.run_number }}
+        docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/python_app:${{ github.run_number }} .
         docker push ${{ secrets.ACR_LOGIN_SERVER }}/python_app:${{ github.run_number }}
