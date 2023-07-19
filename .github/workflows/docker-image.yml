@@ -34,5 +34,5 @@ jobs:
         ACR_LOGIN_SERVER: ${{ env.ACR_LOGIN_SERVER }}
       run: |
         docker build --file Dockerfile -t python_app .
-        docker tag python_app:123 $ACR_LOGIN_SERVER/python_app
-        docker push $ACR_LOGIN_SERVER/python_app
+        docker tag python_app $ACR_LOGIN_SERVER/python_app:123
+        docker push $ACR_LOGIN_SERVER/python_app:123
