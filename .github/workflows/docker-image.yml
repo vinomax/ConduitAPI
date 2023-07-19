@@ -7,12 +7,25 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag python_app:$(date +%s)
+    - name: Log in to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1
+    - name: Build and push Docker image
+      env:
+        DOCKER_IMAGE: python_app:${{ github.sha }}
+        ACR_LOGIN_SERVER: workregistry.azurecr.io
+        AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+        AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      run: |
+        docker build --file Dockerfile -t $DOCKER_IMAGE .
+        docker login $ACR_LOGIN_SERVER -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET
+        docker tag $DOCKER_IMAGE $ACR_LOGIN_SERVER/$DOCKER_IMAGE
+        docker push $ACR_LOGIN_SERVER/$DOCKER_IMAGE
