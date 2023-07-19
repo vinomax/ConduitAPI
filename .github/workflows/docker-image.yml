@@ -31,5 +31,5 @@ jobs:
         password: $ACR_PASSWORD
     - run: |
         docker build --file Dockerfile -t python_app .
-        docker tag python_app $ACR_LOGIN_SERVER/$DOCKER_IMAGE
-        docker push $ACR_LOGIN_SERVER/$DOCKER_IMAGE
+        docker tag python_app $ACR_LOGIN_SERVER/python_app
+        docker push $ACR_LOGIN_SERVER/python_app
