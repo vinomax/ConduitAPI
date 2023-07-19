@@ -21,13 +21,13 @@ jobs:
     - name: Docker log in to Azure Container Registry
       env:
           ACR_LOGIN_SERVER: ${{ env.ACR_LOGIN_SERVER }}
-          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ACR_USER_NAME: ${{ secrets.ACR_USER_NAME }}
+          ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
       uses: azure/docker-login@v1      
       with:
         login-server: ${{ env.ACR_LOGIN_SERVER }}
-        username: $AZURE_CLIENT_ID
-        password: $AZURE_CLIENT_SECRET
+        username: $ACR_USER_NAME
+        password: $ACR_PASSWORD
     - name: Build and push Docker image
       env:
         DOCKER_IMAGE: python_app:${{ github.sha }}
