@@ -28,4 +28,5 @@ jobs:
         docker build --file Dockerfile -t $DOCKER_IMAGE .
         docker login $ACR_LOGIN_SERVER -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET
         docker tag $DOCKER_IMAGE $ACR_LOGIN_SERVER/$DOCKER_IMAGE
+        echo 'tagging completed'
         docker push $ACR_LOGIN_SERVER/$DOCKER_IMAGE
