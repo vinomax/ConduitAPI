@@ -33,6 +33,6 @@ jobs:
         DOCKER_IMAGE: python_app:${{ github.run_number }}
         ACR_LOGIN_SERVER: ${{ env.ACR_LOGIN_SERVER }}
       run: |
-        docker build --file Dockerfile -t $DOCKER_IMAGE .
-        docker tag $DOCKER_IMAGE $ACR_LOGIN_SERVER/$DOCKER_IMAGE
-        docker push $ACR_LOGIN_SERVER/$DOCKER_IMAGE
+        docker build --file Dockerfile -t python_app .
+        docker tag python_app:latest $ACR_LOGIN_SERVER/python_app:${{ github.run_number }}
+        docker push $ACR_LOGIN_SERVER/python_app:${{ github.run_number }}
