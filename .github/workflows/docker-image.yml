@@ -25,13 +25,13 @@ jobs:
           ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
       uses: azure/docker-login@v1      
       with:
-        login-server: ${{ env.ACR_LOGIN_SERVER }}
+        login-server: $ACR_LOGIN_SERVER
         username: $ACR_USER_NAME
         password: $ACR_PASSWORD
     - name: Build and push Docker image
       env:
         DOCKER_IMAGE: python_app:${{ github.sha }}
-        ACR_LOGIN_SERVER: $ACR_LOGIN_SERVER
+        ACR_LOGIN_SERVER: ${{ env.ACR_LOGIN_SERVER }}
       run: |
         docker build --file Dockerfile -t $DOCKER_IMAGE . 
         docker tag $DOCKER_IMAGE $ACR_LOGIN_SERVER/$DOCKER_IMAGE
