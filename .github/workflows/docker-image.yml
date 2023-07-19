@@ -32,7 +32,7 @@ jobs:
       env:        
         ACR_LOGIN_SERVER: ${{ env.ACR_LOGIN_SERVER }}
       run: |
-        DOCKER_IMAGE= "python_app:"+$(echo "${{ github.sha }}" | tail -c 6)
+        DOCKER_IMAGE= "python_app:"$(echo "${{ github.sha }}" | tail -c 6)
         docker build --file Dockerfile -t $DOCKER_IMAGE . 
         docker tag $DOCKER_IMAGE $ACR_LOGIN_SERVER/$DOCKER_IMAGE
         docker push $ACR_LOGIN_SERVER/$DOCKER_IMAGE
