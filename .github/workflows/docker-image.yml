@@ -30,6 +30,5 @@ jobs:
         username: $ACR_USER_NAME
         password: $ACR_PASSWORD
     - run: |
-        docker build --file Dockerfile -t python_app .
-        docker tag python_app $ACR_LOGIN_SERVER/python_app
-        docker push $ACR_LOGIN_SERVER/python_app
+        docker build --file Dockerfile -t workregistry.azurecr.io/python_app .
+        docker push workregistry.azurecr.io/python_app
