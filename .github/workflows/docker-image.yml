@@ -32,7 +32,10 @@ jobs:
       env:        
         DOCKER_IMAGE: python_app:${{ github.run_number }}
         ACR_LOGIN_SERVER: workregistry.azurecr.io
+        ACR_USER_NAME: ${{ secrets.ACR_USER_NAME }}
+        ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
       run: |
         docker build --file Dockerfile -t python_app .
+        docker login $ACR_LOGIN_SERVER -u $ACR_USER_NAME -p $ACR_PASSWORD
         docker tag python_app $ACR_LOGIN_SERVER/$DOCKER_IMAGE
         docker push $ACR_LOGIN_SERVER/$DOCKER_IMAGE
